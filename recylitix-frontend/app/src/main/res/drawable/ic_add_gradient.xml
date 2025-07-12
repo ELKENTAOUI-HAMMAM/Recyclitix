@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fond avec gradient -->
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:type="linear"
+                android:angle="135"
+                android:startColor="@color/successGreen"
+                android:endColor="@color/successGreenDark" />
+            <size
+                android:width="48dp"
+                android:height="48dp" />
+        </shape>
+    </item>
+
+    <!-- Icône plus au centre -->
+    <item
+        android:drawable="@drawable/ic_add_white"
+        android:gravity="center" />
+</layer-list>

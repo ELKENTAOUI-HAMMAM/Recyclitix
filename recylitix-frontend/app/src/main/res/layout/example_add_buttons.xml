@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- FAB avec icône add -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAdd"
+        style="@style/AddButtonStyle"
+        android:layout_gravity="end"
+        android:layout_marginBottom="16dp"
+        app:srcCompat="@drawable/ic_add" />
+
+    <!-- Bouton avec icône et texte -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddItem"
+        style="@style/AddButtonWithText"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="8dp"
+        android:text="Add to History"
+        app:icon="@drawable/ic_add"
+        app:iconGravity="textStart" />
+
+    <!-- Bouton outline avec icône -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddOutline"
+        style="@style/AddButtonOutline"
+        android:layout_width="match_parent"
+        android:text="Add New Item"
+        app:icon="@drawable/ic_add"
+        app:iconGravity="textStart" />
+
+</LinearLayout>

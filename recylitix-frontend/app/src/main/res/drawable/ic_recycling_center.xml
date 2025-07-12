@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+
+    <!-- Building base -->
+    <path
+        android:fillColor="#FF4CAF50"
+        android:pathData="M3,13h2v7h14v-7h2v9H3v-9z" />
+
+    <!-- Roof -->
+    <path
+        android:fillColor="#FF388E3C"
+        android:pathData="M12,4l7,6v1h-2v-0.5L12,6 7,10.5V11H5v-1l7,-6z" />
+
+    <!-- Recycling symbol inside the center -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M13,14l-1.5,-2.6L10,14h1v1.5h2V14h1zM8.5,16l1.5,2.6L11.5,16h-1v-1.5H8.5V16zM15.5,13.5H14V12h-2v1.5h-1.5l1.5,2.6L15.5,13.5z" />
+</vector>

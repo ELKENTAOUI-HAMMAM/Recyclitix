@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App name -->
+    <string name="app_name">Recylitix</string>
+
+    <!-- Login & Registration -->
+    <string name="label_email">Email</string>
+    <string name="label_password">Mot de passe</string>
+    <string name="label_confirm_password">Confirmer le mot de passe</string>
+    <string name="label_first_name">Prénom</string>
+    <string name="label_last_name">Nom</string>
+    <string name="action_login">Se connecter</string>
+    <string name="action_register">S\'inscrire</string>
+    <string name="action_logout">Se déconnecter</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Accueil</string>
+    <string name="nav_scan">Scanner</string>
+    <string name="nav_history">Historique</string>
+    <string name="nav_profile">Profil</string>
+
+    <!-- Home Screen -->
+    <string name="scan_object">Scanner un objet</string>
+    <string name="choose_from_gallery">Choisir depuis la galerie</string>
+    <string name="recycling_tools">Outils de recyclage</string>
+    <string name="history">Historique</string>
+    <string name="map">Carte</string>
+
+    <!-- Scan Screen -->
+    <string name="analyze_object">Analyser l\'objet</string>
+    <string name="gallery">Galerie</string>
+    <string name="photo">Photo</string>
+
+    <!-- Waste Detail -->
+    <string name="analysis_result">Résultat de l\'analyse</string>
+    <string name="about">À propos</string>
+    <string name="recycling_instructions">Instructions de recyclage</string>
+    <string name="collection_points">Points de collecte</string>
+    <string name="add_to_history">Ajouter à l\'historique</string>
+    <string name="share">Partager</string>
+    <string name="recyclable">Recyclable</string>
+    <string name="easy">Facile</string>
+
+    <!-- History Screen -->
+    <string name="scan_history">Historique des scans</string>
+    <string name="search_hint">Rechercher un élément...</string>
+    <string name="no_history_title">Aucun scan dans l\'historique</string>
+    <string name="no_history_subtitle">Commencez à scanner des objets pour construire votre historique</string>
+
+    <!-- Profile Screen -->
+    <string name="my_profile">Mon profil</string>
+    <string name="personal_information">Informations personnelles</string>
+    <string name="first_name">Prénom</string>
+    <string name="last_name">Nom</string>
+
+    <!-- Maps Screen -->
+    <string name="find_collection_point">Trouver un point de collecte...</string>
+    <string name="directions">Itinéraire</string>
+    <string name="accepted_materials">Matériaux acceptés</string>
+    <string name="hours">Horaires</string>
+    <string name="contact">Contact</string>
+
+    <!-- Waste Types -->
+    <string name="plastic">Plastique</string>
+    <string name="glass">Verre</string>
+    <string name="paper">Papier</string>
+    <string name="metal">Métal</string>
+    <string name="cardboard">Carton</string>
+    <string name="organic">Organique</string>
+    <string name="trash">Déchet</string>
+
+    <!-- Messages -->
+    <string name="error_no_image">Veuillez sélectionner ou prendre une photo</string>
+    <string name="error_processing">Erreur lors du traitement</string>
+    <string name="error_invalid_image">Image invalide</string>
+    <string name="error_loading_image">Erreur lors du chargement</string>
+    <string name="error_camera_permission">Permission caméra refusée</string>
+    <string name="error_location_permission">Permission de localisation requise</string>
+    <string name="error_connection">Erreur de connexion</string>
+    <string name="error_weather_data">Erreur de données météo</string>
+    <string name="error_location_data">Erreur de localisation</string>
+    <string name="error_sharing">Erreur lors du partage</string>
+    <string name="error_saving">Erreur lors de la sauvegarde</string>
+
+    <string name="success_added_to_history">Ajouté à l\'historique ✅</string>
+    <string name="success_item_deleted">Élément supprimé</string>
+    <string name="success_registration">Inscription réussie!</string>
+
+    <string name="confirm_delete_title">Supprimer cet élément</string>
+    <string name="confirm_delete_message">Êtes-vous sûr de vouloir supprimer cet élément de l\'historique ?</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="action_cancel">Annuler</string>
+
+    <!-- Splash Screen -->
+    <string name="splash_tagline">Smart Recycling Made Easy</string>
+    <string name="splash_loading">Chargement...</string>
+    <string name="splash_version">v1.0.0</string>
+
+    <!-- Content Descriptions for Accessibility -->
+    <string name="cd_app_logo">Logo de l\'application SmartRecycle</string>
+    <string name="cd_scan_icon">Icône de scan</string>
+    <string name="cd_gallery_icon">Icône de galerie</string>
+    <string name="cd_camera_icon">Icône de caméra</string>
+    <string name="cd_location_icon">Icône de localisation</string>
+    <string name="cd_back_button">Bouton retour</string>
+    <string name="cd_waste_image">Image du déchet scanné</string>
+    <string name="cd_recycling_point">Point de recyclage</string>
+
+    <!-- Permissions -->
+    <string name="permission_camera_rationale">L\'accès à la caméra est nécessaire pour prendre des photos des objets à recycler.</string>
+    <string name="permission_location_rationale">L\'accès à la localisation est nécessaire pour trouver les points de collecte près de vous.</string>
+    <string name="permission_storage_rationale">L\'accès au stockage est nécessaire pour sauvegarder et partager vos images.</string>
+</resources>

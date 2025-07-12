@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Couleurs principales -->
+    <color name="primaryColor">#4CAF50</color>
+    <color name="primaryColorDark">#388E3C</color>
+    <color name="primaryColorLight">#C8E6C9</color>
+    <color name="accentColor">#2196F3</color>
+
+    <!-- Couleurs fonctionnelles -->
+    <color name="successGreen">#4CAF50</color>
+    <color name="successGreenDark">#388E3C</color>
+    <color name="successGreenLight">#81C784</color>
+    <color name="errorRed">#F44336</color>
+    <color name="errorRedDark">#D32F2F</color>
+    <color name="errorRedLight">#E57373</color>
+    <color name="warningOrange">#FF9800</color>
+    <color name="warningOrangeDark">#F57C00</color>
+    <color name="warningOrangeLight">#FFB74D</color>
+    <color name="infoBlue">#2196F3</color>
+    <color name="infoBlueDark">#1976D2</color>
+    <color name="infoBlueLight">#64B5F6</color>
+
+    <!-- Arrière-plans et surfaces -->
+    <color name="backgroundColor">#F5F5F5</color>
+    <color name="surfaceColor">#FFFFFF</color>
+    <color name="cardBackground">#FFFFFF</color>
+
+    <!-- Texte -->
+    <color name="textColor">#212121</color>
+    <color name="textColorSecondary">#757575</color>
+    <color name="textColorTertiary">#9E9E9E</color>
+    <color name="hintColor">#9E9E9E</color>
+    <color name="linkColor">#2196F3</color>
+    <color name="disabledColor">#BDBDBD</color>
+
+    <!-- Gris -->
+    <color name="lightGray">#E0E0E0</color>
+    <color name="mediumGray">#9E9E9E</color>
+    <color name="darkGray">#424242</color>
+    <color name="dividerColor">#E0E0E0</color>
+
+    <!-- Transparences -->
+    <color name="overlayColor">#80000000</color>
+    <color name="transparentWhite">#80FFFFFF</color>
+    <color name="transparentBlack">#80000000</color>
+    <color name="rippleColor">#1F000000</color>
+
+    <!-- Types de déchets -->
+    <color name="plasticColor">#FF9800</color>
+    <color name="glassColor">#4CAF50</color>
+    <color name="paperColor">#795548</color>
+    <color name="metalColor">#607D8B</color>
+    <color name="cardboardColor">#8BC34A</color>
+    <color name="organicColor">#689F38</color>
+    <color name="trashColor">#424242</color>
+
+    <!-- Navigation -->
+    <color name="bottomNavBackground">#FFFFFF</color>
+    <color name="bottomNavSelectedBackground">#E8F5E8</color>
+    <color name="bottomNavRipple">#1A4CAF50</color>
+    <color name="navItemSelected">#4CAF50</color>
+    <color name="navItemUnselected">#9E9E9E</color>
+    <color name="navItemPressed">#66BB6A</color>
+    <color name="navItemDisabled">#E0E0E0</color>
+
+    <!-- Badges -->
+    <color name="badgeBackground">#F44336</color>
+    <color name="badgeText">#FFFFFF</color>
+
+    <!-- Arrière-plans d'alerte -->
+    <color name="alertBackground">#FFF3E0</color>
+    <color name="alertBorder">#FFB74D</color>
+    <color name="successBackground">#E8F5E8</color>
+    <color name="successBorder">#81C784</color>
+    <color name="errorBackground">#FFEBEE</color>
+    <color name="errorBorder">#E57373</color>
+    <color name="infoBackground">#E3F2FD</color>
+    <color name="infoBorder">#64B5F6</color>
+</resources>

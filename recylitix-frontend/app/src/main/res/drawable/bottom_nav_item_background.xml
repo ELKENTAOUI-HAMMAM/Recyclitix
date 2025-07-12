@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- État sélectionné -->
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/primaryColorLight" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <!-- État pressé -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/lightGray" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <!-- État par défaut (transparent) -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</selector>

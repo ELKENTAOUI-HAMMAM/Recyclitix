@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/wasteIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+                android:src="@drawable/logo_recylitix"
+            android:contentDescription="Waste icon" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/wasteType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plastic"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/wasteCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recyclable"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:id="@+id/wasteDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                android:text="21/06/2025 15:30"
+                android:textSize="12sp"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end">
+
+            <TextView
+                android:id="@+id/wastePoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10 pts"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/primaryColor"
+                android:background="@drawable/points_background"
+                android:padding="8dp" />
+
+                <TextView
+                android:id="@+id/timeAgo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                android:text="2 min ago"
+                android:textSize="12sp"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
