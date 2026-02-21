@@ -9,7 +9,7 @@ public class ImageRequest {
     @SerializedName("imageUrl")
     private String imageUrl;
 
-    // Constructeur par défaut pour Retrofit
+    
     public ImageRequest() {
     }
 

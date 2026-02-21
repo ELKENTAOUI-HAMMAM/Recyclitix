@@ -1,8 +1,9 @@
 package com.example.smartrecycle.model;
 
+import java.io.Serializable;
 import com.google.gson.annotations.SerializedName;
 
-public class WasteResult {
+public class WasteResult implements Serializable {
     @SerializedName("id")
     private Long id;
     
@@ -39,7 +40,7 @@ public class WasteResult {
     @SerializedName("imageUrl")
     private String imageUrl;
 
-    // Getters
+    
     public Long getId() {
         return id;
     }
@@ -88,7 +89,7 @@ public class WasteResult {
         return imageUrl;
     }
 
-    // Setters
+    
     public void setId(Long id) {
         this.id = id;
     }

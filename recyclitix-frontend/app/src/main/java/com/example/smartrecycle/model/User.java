@@ -19,7 +19,7 @@ public class User {
     private String lastName;
 
     public User() {
-        // Default constructor for Retrofit
+        
     }
 
     public User(String email, String password) {

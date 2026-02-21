@@ -20,7 +20,7 @@ public class WasteClassifier {
             "metal", "glass", "paper", "cardboard", "plastic"
     };
     
-    // Map to store detailed descriptions for each waste type
+    
     private static final Map<String, String> WASTE_DESCRIPTIONS = new HashMap<String, String>() {{
         put("metal", "Metal waste includes items like aluminum cans, steel food containers, and metal bottle caps. " +
                 "These items are highly recyclable and can be melted down and reused indefinitely without losing quality.");
@@ -42,7 +42,7 @@ public class WasteClassifier {
                 "Plastics #1 (PET) and #2 (HDPE) are most commonly accepted for recycling.");
     }};
     
-    // Map to store recycling instructions for each waste type
+    
     private static final Map<String, String> RECYCLING_INSTRUCTIONS = new HashMap<String, String>() {{
         put("metal", "1. Empty and rinse the metal container\n" +
                 "2. Remove paper labels if possible\n" +
@@ -95,26 +95,26 @@ public class WasteClassifier {
         }
 
         try {
-            // 1. Resize to match training input size
+            
             Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, 224, 224, true);
 
-            // 2. Prepare input tensor
+            
             float[][][][] input = new float[1][224][224][3];
             int[] pixels = new int[224 * 224];
             resizedBitmap.getPixels(pixels, 0, 224, 0, 0, 224, 224);
 
-            // 3. Convert and normalize pixels to match tf.keras.preprocessing.image.img_to_array
+            
             for (int i = 0; i < 224; i++) {
                 for (int j = 0; j < 224; j++) {
                     int pixel = pixels[i * 224 + j];
-                    // Scale to [0, 255] range like in training
-                    input[0][i][j][0] = (pixel >> 16) & 0xFF; // R
-                    input[0][i][j][1] = (pixel >> 8) & 0xFF;  // G
-                    input[0][i][j][2] = pixel & 0xFF;         // B
+                    
+                    input[0][i][j][0] = (pixel >> 16) & 0xFF; 
+                    input[0][i][j][1] = (pixel >> 8) & 0xFF;  
+                    input[0][i][j][2] = pixel & 0xFF;         
                 }
             }
 
-            // 4. Run inference
+            
             float[][] output = new float[1][WASTE_TYPES.length];
             if (tflite == null) {
                 Log.e("WasteClassifier", "TFLite interpreter is null");
@@ -123,7 +123,7 @@ public class WasteClassifier {
 
             tflite.run(input, output);
 
-            // Debug output values
+            
             StringBuilder sb = new StringBuilder("Predictions: ");
             for (int i = 0; i < output[0].length; i++) {
                 sb.append(WASTE_TYPES[i]).append(":").append(output[0][i]).append(" ");
@@ -148,19 +148,19 @@ public class WasteClassifier {
         return maxIndex;
     }
     
-    // Get the detailed description for a waste type
+    
     public static String getWasteDescription(String wasteType) {
         return WASTE_DESCRIPTIONS.getOrDefault(wasteType.toLowerCase(), 
                 "No description available for this waste type.");
     }
     
-    // Get recycling instructions for a waste type
+    
     public static String getRecyclingInstructions(String wasteType) {
         return RECYCLING_INSTRUCTIONS.getOrDefault(wasteType.toLowerCase(), 
                 "No recycling instructions available for this waste type.");
     }
     
-    // Check if a waste type is recyclable
+    
     public static boolean isRecyclable(String wasteType) {
         switch (wasteType.toLowerCase()) {
             case "plastic":

@@ -133,17 +133,17 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadUserStats() {
-        // Vérifier si l'utilisateur est connecté
+        
         SessionManager sessionManager = new SessionManager(requireContext());
         String token = sessionManager.getToken();
         
         if (token == null || token.isEmpty()) {
-            // Utilisateur non connecté - afficher des statistiques par défaut
+            
             showDefaultStats();
             return;
         }
         
-        // Charger les statistiques depuis le backend
+        
         RetrofitClient.getAuthenticatedApiService(requireContext())
                 .getWasteHistory()
                 .enqueue(new Callback<List<WasteResult>>() {
@@ -171,7 +171,7 @@ public class HomeFragment extends Fragment {
             int totalPoints = 0;
             int thisWeekScans = 0;
 
-            // Get current week start date
+            
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
             calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -181,18 +181,18 @@ public class HomeFragment extends Fragment {
             Date weekStart = calendar.getTime();
 
         for (WasteResult wasteResult : wasteResults) {
-            // Calculer les points
+            
             if (wasteResult.getWastePoints() != null) {
                 totalPoints += wasteResult.getWastePoints();
             } else {
-                // Points par défaut selon le type de déchet
+                
                 totalPoints += getDefaultPoints(wasteResult.getWasteType());
             }
 
-            // Vérifier si l'analyse est de cette semaine
+            
             if (wasteResult.getWasteDate() != null) {
                 try {
-                    // Convertir la date string en Date object
+                    
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
                     Date scanDate = sdf.parse(wasteResult.getWasteDate());
                     if (scanDate != null && scanDate.after(weekStart)) {
@@ -204,7 +204,7 @@ public class HomeFragment extends Fragment {
             }
         }
 
-        // Mettre à jour l'UI
+        
         updateStatsUI(totalScans, totalPoints, thisWeekScans);
     }
 
@@ -246,7 +246,7 @@ public class HomeFragment extends Fragment {
             totalPointsText.setText("0");
             thisWeekText.setText("0");
                 
-                // Optionnel : afficher un message pour encourager la connexion
+                
                 Toast.makeText(requireContext(), "Connectez-vous pour voir vos statistiques", Toast.LENGTH_SHORT).show();
             });
         }
@@ -342,7 +342,7 @@ public class HomeFragment extends Fragment {
                         } else {
                             locationText.setText(address.getCountryName());
                         }
-                        // Afficher la date et l'heure actuelles
+                        
                         String currentDateTime = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(new java.util.Date());
                         dateText.setText(currentDateTime);
                     });
@@ -386,7 +386,7 @@ public class HomeFragment extends Fragment {
                                 temperatureText.setText(String.format(Locale.getDefault(), "%.1f°C", temp));
                                 humidityText.setText("Hum: " + humidity + "%");
                                 windText.setText("Vent: " + String.format(Locale.getDefault(), "%.0f", windSpeed * 3.6) + " km/h");
-                                // Changer l'icône météo selon le code
+                                
                                 int resId = getWeatherIconResId(icon);
                                 if (resId != 0) weatherIcon.setImageResource(resId);
                             });
@@ -408,7 +408,7 @@ public class HomeFragment extends Fragment {
         queue.add(request);
     }
 
-    // Retourne la ressource drawable selon le code d'icône OpenWeatherMap
+    
     private int getWeatherIconResId(String iconCode) {
         switch (iconCode) {
             case "01d": return R.drawable.ic_weather_sunny;
@@ -448,7 +448,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // Refresh stats when returning to home
+        
         loadUserStats();
     }
 }

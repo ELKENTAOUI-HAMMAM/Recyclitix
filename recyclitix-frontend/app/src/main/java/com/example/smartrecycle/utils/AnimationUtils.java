@@ -14,9 +14,7 @@ import android.view.animation.TranslateAnimation;
 
 public class AnimationUtils {
 
-    /**
-     * Fade in animation
-     */
+    
     public static void fadeIn(View view, int duration) {
         view.setAlpha(0f);
         view.setVisibility(View.VISIBLE);
@@ -27,9 +25,7 @@ public class AnimationUtils {
                 .setListener(null);
     }
 
-    /**
-     * Fade out animation
-     */
+    
     public static void fadeOut(View view, int duration) {
         view.animate()
                 .alpha(0f)
@@ -43,9 +39,7 @@ public class AnimationUtils {
                 });
     }
 
-    /**
-     * Scale animation for button press effect
-     */
+    
     public static void scaleButton(View view) {
         view.animate()
                 .scaleX(0.95f)
@@ -59,9 +53,7 @@ public class AnimationUtils {
                 });
     }
 
-    /**
-     * Slide in from bottom animation
-     */
+    
     public static void slideInFromBottom(View view, int duration) {
         view.setTranslationY(view.getHeight());
         view.setVisibility(View.VISIBLE);
@@ -71,9 +63,7 @@ public class AnimationUtils {
                 .setInterpolator(new AccelerateDecelerateInterpolator());
     }
 
-    /**
-     * Slide out to bottom animation
-     */
+    
     public static void slideOutToBottom(View view, int duration) {
         view.animate()
                 .translationY(view.getHeight())
@@ -87,9 +77,7 @@ public class AnimationUtils {
                 });
     }
 
-    /**
-     * Rotate animation
-     */
+    
     public static void rotate(View view, float degrees, int duration) {
         view.animate()
                 .rotation(degrees)
@@ -97,9 +85,7 @@ public class AnimationUtils {
                 .setInterpolator(new AccelerateDecelerateInterpolator());
     }
 
-    /**
-     * Pulse animation for highlighting
-     */
+    
     public static void pulse(View view) {
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", 1f, 1.1f, 1f);
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", 1f, 1.1f, 1f);
@@ -113,18 +99,14 @@ public class AnimationUtils {
         scaleY.start();
     }
 
-    /**
-     * Shake animation for errors
-     */
+    
     public static void shake(View view) {
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0);
         animator.setDuration(500);
         animator.start();
     }
 
-    /**
-     * Card flip animation
-     */
+    
     public static void flipCard(View frontView, View backView) {
         ObjectAnimator frontAnimator = ObjectAnimator.ofFloat(frontView, "rotationY", 0f, 90f);
         ObjectAnimator backAnimator = ObjectAnimator.ofFloat(backView, "rotationY", -90f, 0f);
@@ -144,9 +126,7 @@ public class AnimationUtils {
         frontAnimator.start();
     }
 
-    /**
-     * Bounce animation
-     */
+    
     public static void bounce(View view) {
         AnimationSet animationSet = new AnimationSet(true);
 
@@ -169,9 +149,7 @@ public class AnimationUtils {
         view.startAnimation(animationSet);
     }
 
-    /**
-     * Slide in from right animation
-     */
+    
     public static void slideInFromRight(View view, int duration) {
         TranslateAnimation animation = new TranslateAnimation(
                 Animation.RELATIVE_TO_PARENT, 1.0f,
@@ -183,15 +161,13 @@ public class AnimationUtils {
         view.startAnimation(animation);
     }
 
-    /**
-     * Progress animation for loading
-     */
+    
     public static void animateProgress(View progressView, int fromProgress, int toProgress, int duration) {
         ValueAnimator animator = ValueAnimator.ofInt(fromProgress, toProgress);
         animator.setDuration(duration);
         animator.addUpdateListener(animation -> {
             int progress = (int) animation.getAnimatedValue();
-            // Update progress view here
+            
         });
         animator.start();
     }

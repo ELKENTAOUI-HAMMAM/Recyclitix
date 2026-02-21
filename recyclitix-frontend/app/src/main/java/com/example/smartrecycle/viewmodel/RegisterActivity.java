@@ -29,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Get API service from RetrofitClient
+        
         apiService = RetrofitClient.getApiService();
 
         EditText firstNameEditText = findViewById(R.id.firstNameEditText);

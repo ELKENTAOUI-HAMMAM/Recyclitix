@@ -14,9 +14,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Service for waste classification
- */
+
 @Service
 public class WasteClassificationService {
 
@@ -36,21 +34,13 @@ public class WasteClassificationService {
 
     private static final int MAX_IMAGE_SIZE = 2 * 1024 * 1024;
 
-    /**
-     * Classify waste based on image data
-     * 
-     * @param imageRequest the request containing the image data
-     * @param user the user who submitted the request
-     * @return the classification result
-     * @throws IllegalArgumentException if the image is too large or invalid
-     * @throws IOException if there's an error processing the image
-     */
+    
     public WasteResult classifyWaste(ImageRequest imageRequest, User user) {
         if (imageRequest.getImageData() == null || imageRequest.getImageData().isEmpty()) {
             throw new IllegalArgumentException("Image URL cannot be empty");
         }
 
-        // Utiliser l'URL directement
+        
         String photoUrl = imageRequest.getImageData();
 
         String[] wasteTypes = {"plastic", "paper", "glass", "metal", "organic", "non-recyclable"};
@@ -65,7 +55,7 @@ public class WasteClassificationService {
 
         WasteResult result = new WasteResult();
         result.setWasteType(wasteType);
-        result.setConfidence(75.0 + Math.random() * 20.0); // Mock confidence between 75% and 95%
+        result.setConfidence(75.0 + Math.random() * 20.0); 
         result.setObjectDescription(description);
         result.setInstructions(recyclingInstructions);
         result.setEnvironmentalImpact(environmentalImpact);
@@ -74,7 +64,7 @@ public class WasteClassificationService {
         }
         result.setWasteDate(LocalDateTime.now());
         result.setScanTime(LocalDateTime.now());
-        // Attribution des points selon le type de déchet
+        
         int points = switch (wasteType) {
             case "plastic" -> 10;
             case "paper" -> 8;
@@ -84,19 +74,14 @@ public class WasteClassificationService {
             default -> 2;
         };
         result.setWastePoints(points);
-        // Stocker l'image analysée dans waste_icon
+        
         result.setWasteIcon(imageRequest.getImageData());
-        // Copier l'URL de l'image uploadée
+        
         result.setImageUrl(imageRequest.getImageUrl());
         return wasteResultRepository.save(result);
     }
 
-    /**
-     * Generate a description for the waste type
-     * 
-     * @param wasteType the type of waste
-     * @return a description
-     */
+    
     private String generateDescription(String wasteType) {
         switch (wasteType) {
             case "plastic":
@@ -116,12 +101,7 @@ public class WasteClassificationService {
         }
     }
 
-    /**
-     * Generate environmental impact information for the waste type
-     * 
-     * @param wasteType the type of waste
-     * @return environmental impact information
-     */
+    
     private String generateEnvironmentalImpact(String wasteType) {
         switch (wasteType) {
             case "plastic":

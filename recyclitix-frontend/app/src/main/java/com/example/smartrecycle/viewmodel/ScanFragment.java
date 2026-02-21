@@ -140,7 +140,7 @@ public class ScanFragment extends Fragment {
         emptyImageOverlay = view.findViewById(R.id.emptyImageOverlay);
         scanButton = view.findViewById(R.id.scanButton);
 
-        // Back button
+        
         view.findViewById(R.id.backButton).setOnClickListener(v ->
             requireActivity().onBackPressed());
     }
@@ -154,13 +154,13 @@ public class ScanFragment extends Fragment {
     }
 
     private void setupClickListeners(View view) {
-        // Gallery button (embedded in card)
-        view.findViewById(R.id.pickImageButton).setOnClickListener(v -> openGallery());
+        
+        view.findViewById(R.id.galleryCard).setOnClickListener(v -> openGallery());
 
-        // Camera button (embedded in card)
-        view.findViewById(R.id.takePhotoButton).setOnClickListener(v -> takePhoto());
+        
+        view.findViewById(R.id.cameraCard).setOnClickListener(v -> takePhoto());
 
-        // Scan button
+        
         scanButton.setOnClickListener(v -> {
             if (!hasImage) {
                 Toast.makeText(getContext(), "Please select or take a photo first", Toast.LENGTH_SHORT).show();
@@ -221,13 +221,13 @@ public class ScanFragment extends Fragment {
 
             new Thread(() -> {
                 try {
-                    // Classification locale
+                    
                     String wasteType = wasteClassifier.classifyImage(bitmap);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
                     byte[] byteArray = stream.toByteArray();
 
-                    // Upload image puis envoyer au backend
+                    
                     requireActivity().runOnUiThread(() -> uploadImageAndScan(bitmap, wasteType, byteArray));
 
                 } catch (Exception e) {
@@ -305,11 +305,11 @@ public class ScanFragment extends Fragment {
                                     WasteResult wasteResult = response.body();
                                     Log.d(TAG, "Waste result saved to backend: " + wasteResult.getId());
                                     Toast.makeText(getContext(), "Analysis completed and saved!", Toast.LENGTH_SHORT).show();
-                                    navigateToWasteDetail(wasteType, imageBytes, imageUri != null ? imageUri.toString() : null);
+                                    navigateToWasteDetail(wasteType, imageBytes, imageUri != null ? imageUri.toString() : null, wasteResult);
                                 } else {
                                     Log.e(TAG, "Backend error: " + response.code());
                                     Toast.makeText(getContext(), "Error saving to backend", Toast.LENGTH_SHORT).show();
-                                    navigateToWasteDetail(wasteType, imageBytes, imageUri != null ? imageUri.toString() : null);
+                                    navigateToWasteDetail(wasteType, imageBytes, imageUri != null ? imageUri.toString() : null, null);
                                 }
                             });
                         }
@@ -320,7 +320,7 @@ public class ScanFragment extends Fragment {
                                 showProgress(false);
                                 Log.e(TAG, "Network error", t);
                                 Toast.makeText(getContext(), "Network error, but analysis completed", Toast.LENGTH_SHORT).show();
-                                navigateToWasteDetail(wasteType, imageBytes, imageUri != null ? imageUri.toString() : null);
+                                navigateToWasteDetail(wasteType, imageBytes, imageUri != null ? imageUri.toString() : null, null);
                             });
                         }
                     });
@@ -336,11 +336,11 @@ public class ScanFragment extends Fragment {
                                     WasteResult wasteResult = response.body();
                                     Log.d(TAG, "Waste result saved to backend (public): " + wasteResult.getId());
                                     Toast.makeText(getContext(), "Analysis completed!", Toast.LENGTH_SHORT).show();
-                                    navigateToWasteDetail(wasteType, imageBytes, imageUri != null ? imageUri.toString() : null);
+                                    navigateToWasteDetail(wasteType, imageBytes, imageUri != null ? imageUri.toString() : null, wasteResult);
                                 } else {
                                     Log.e(TAG, "Backend error: " + response.code());
                                     Toast.makeText(getContext(), "Error saving to backend", Toast.LENGTH_SHORT).show();
-                                    navigateToWasteDetail(wasteType, imageBytes, imageUri != null ? imageUri.toString() : null);
+                                    navigateToWasteDetail(wasteType, imageBytes, imageUri != null ? imageUri.toString() : null, null);
                                 }
                             });
                         }
@@ -351,7 +351,7 @@ public class ScanFragment extends Fragment {
                                 showProgress(false);
                                 Log.e(TAG, "Network error", t);
                                 Toast.makeText(getContext(), "Network error, but analysis completed", Toast.LENGTH_SHORT).show();
-                                navigateToWasteDetail(wasteType, imageBytes, imageUri != null ? imageUri.toString() : null);
+                                navigateToWasteDetail(wasteType, imageBytes, imageUri != null ? imageUri.toString() : null, null);
                             });
                         }
                     });
@@ -364,13 +364,16 @@ public class ScanFragment extends Fragment {
         scanButton.setAlpha(show ? 0.5f : 1.0f);
     }
 
-    private void navigateToWasteDetail(String wasteType, byte[] imageBytes, String imagePath) {
+    private void navigateToWasteDetail(String wasteType, byte[] imageBytes, String imagePath, WasteResult wasteResult) {
         WasteDetailFragment fragment = new WasteDetailFragment();
 
         Bundle args = new Bundle();
         args.putString("wasteType", wasteType);
         args.putByteArray("image", imageBytes);
         args.putString("imagePath", imagePath);
+        if (wasteResult != null) {
+            args.putSerializable("wasteResult", wasteResult);
+        }
         fragment.setArguments(args);
 
         getParentFragmentManager()

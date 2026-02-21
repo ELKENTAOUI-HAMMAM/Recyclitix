@@ -18,9 +18,7 @@ import java.util.Locale;
 
 public class ImageUtils {
 
-    /**
-     * Resize bitmap to specified dimensions
-     */
+    
     public static Bitmap resizeBitmap(Bitmap bitmap, int maxWidth, int maxHeight) {
         if (bitmap == null) return null;
 
@@ -37,9 +35,7 @@ public class ImageUtils {
         return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, false);
     }
 
-    /**
-     * Get bitmap from URI
-     */
+    
     public static Bitmap getBitmapFromUri(Context context, Uri uri) {
         try {
             return MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
@@ -49,9 +45,7 @@ public class ImageUtils {
         }
     }
 
-    /**
-     * Save bitmap to internal storage
-     */
+    
     public static String saveBitmapToInternalStorage(Context context, Bitmap bitmap, String directory) {
         try {
             File dir = new File(context.getFilesDir(), directory);
@@ -78,9 +72,7 @@ public class ImageUtils {
         }
     }
 
-    /**
-     * Load bitmap from file path
-     */
+    
     public static Bitmap loadBitmapFromPath(String path) {
         if (path == null || path.isEmpty()) return null;
 
@@ -90,9 +82,7 @@ public class ImageUtils {
         return BitmapFactory.decodeFile(path);
     }
 
-    /**
-     * Correct image orientation based on EXIF data
-     */
+    
     public static Bitmap correctImageOrientation(Bitmap bitmap, String imagePath) {
         try {
             ExifInterface exif = new ExifInterface(imagePath);
@@ -126,9 +116,7 @@ public class ImageUtils {
         }
     }
 
-    /**
-     * Compress bitmap to reduce file size
-     */
+    
     public static Bitmap compressBitmap(Bitmap bitmap, int quality) {
         if (bitmap == null) return null;
 
@@ -148,9 +136,7 @@ public class ImageUtils {
         }
     }
 
-    /**
-     * Create circular bitmap
-     */
+    
     public static Bitmap createCircularBitmap(Bitmap bitmap) {
         if (bitmap == null) return null;
 
@@ -171,9 +157,7 @@ public class ImageUtils {
         return output;
     }
 
-    /**
-     * Calculate sample size for efficient loading
-     */
+    
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
@@ -191,9 +175,7 @@ public class ImageUtils {
         return inSampleSize;
     }
 
-    /**
-     * Load bitmap efficiently with sample size
-     */
+    
     public static Bitmap loadBitmapEfficiently(String path, int reqWidth, int reqHeight) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
@@ -205,9 +187,7 @@ public class ImageUtils {
         return BitmapFactory.decodeFile(path, options);
     }
 
-    /**
-     * Convert bitmap to byte array
-     */
+    
     public static byte[] bitmapToByteArray(Bitmap bitmap) {
         if (bitmap == null) return null;
 
@@ -221,18 +201,14 @@ public class ImageUtils {
         }
     }
 
-    /**
-     * Convert byte array to bitmap
-     */
+    
     public static Bitmap byteArrayToBitmap(byte[] byteArray) {
         if (byteArray == null || byteArray.length == 0) return null;
 
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
     }
 
-    /**
-     * Delete image file
-     */
+    
     public static boolean deleteImageFile(String path) {
         if (path == null || path.isEmpty()) return false;
 
@@ -240,9 +216,7 @@ public class ImageUtils {
         return file.exists() && file.delete();
     }
 
-    /**
-     * Get file size in MB
-     */
+    
     public static double getFileSizeMB(String path) {
         if (path == null || path.isEmpty()) return 0;
 

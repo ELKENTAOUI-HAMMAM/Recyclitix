@@ -29,9 +29,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Controller for waste-related operations
- */
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/waste")
@@ -46,12 +44,7 @@ public class WasteController {
     @Autowired
     private WasteResultRepository wasteResultRepository;
 
-    /**
-     * Endpoint for scanning and classifying waste
-     * 
-     * @param imageRequest the request containing the image data
-     * @return the classification result
-     */
+    
     @PostMapping("/scan")
     public ResponseEntity<?> scanWaste(@Valid @RequestBody ImageRequest imageRequest) {
         User user = null;
@@ -72,50 +65,41 @@ public class WasteController {
         return ResponseEntity.ok(result);
     }
 
-    /**
-     * Get the waste classification history for the authenticated user
-     *
-     * @return a list of waste classification results
-     */
+    
     @GetMapping("/history")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getHistory() {
-        // Get the authenticated user
+        
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        // Find the user in the database
+        
         Optional<User> userOptional = userRepository.findById(userDetails.getId());
         if (!userOptional.isPresent()) {
             return ResponseEntity.badRequest().body("User not found");
         }
 
-        // Get the user's waste classification history
+        
         List<WasteResult> history = wasteResultRepository.findByUserOrderByScanTimeDesc(userOptional.get());
 
         return ResponseEntity.ok(history);
     }
 
-    /**
-     * Save a complete waste result with all fields
-     * 
-     * @param wasteResult the waste result to save
-     * @return the saved waste result
-     */
+    
     @PostMapping("/save")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> saveWasteResult(@Valid @RequestBody WasteResult wasteResult) {
-        // Get the authenticated user
+        
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        // Find the user in the database
+        
         Optional<User> userOptional = userRepository.findById(userDetails.getId());
         if (!userOptional.isPresent()) {
             return ResponseEntity.badRequest().body("User not found");
         }
 
-        // Set the user and timestamps
+        
         wasteResult.setUser(userOptional.get());
         if (wasteResult.getWasteDate() == null) {
             wasteResult.setWasteDate(LocalDateTime.now());
@@ -124,32 +108,27 @@ public class WasteController {
             wasteResult.setScanTime(LocalDateTime.now());
         }
 
-        // Save the waste result
+        
         WasteResult savedResult = wasteResultRepository.save(wasteResult);
 
         return ResponseEntity.ok(savedResult);
     }
 
-    /**
-     * Get a specific waste classification result
-     * 
-     * @param id the ID of the waste result
-     * @return the waste classification result
-     */
+    
     @GetMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getWasteResult(@PathVariable Long id) {
-        // Get the authenticated user
+        
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        // Find the waste result
+        
         Optional<WasteResult> resultOptional = wasteResultRepository.findById(id);
         if (!resultOptional.isPresent()) {
             return ResponseEntity.notFound().build();
         }
 
-        // Check if the waste result belongs to the authenticated user
+        
         WasteResult result = resultOptional.get();
         if (!result.getUser().getId().equals(userDetails.getId())) {
             return ResponseEntity.status(403).body("Access denied");
@@ -158,11 +137,7 @@ public class WasteController {
         return ResponseEntity.ok(result);
     }
 
-    /**
-     * Delete a specific waste classification result
-     * @param id the ID of the waste result
-     * @return status message
-     */
+    
     @DeleteMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> deleteWasteResult(@PathVariable Long id) {
@@ -180,7 +155,7 @@ public class WasteController {
         return ResponseEntity.ok().body("Waste result deleted successfully");
     }
 
-    // Endpoint for uploading an image
+    
     @PostMapping("/upload-image")
     public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
@@ -194,7 +169,7 @@ public class WasteController {
             String filename = Instant.now().toEpochMilli() + "_" + originalFilename;
             Path filePath = Paths.get(uploadsDir + filename);
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-            // Suppose static files are served from /uploads/
+            
             String imageUrl = "/uploads/" + filename;
             HashMap<String, String> response = new HashMap<>();
             response.put("imageUrl", imageUrl);

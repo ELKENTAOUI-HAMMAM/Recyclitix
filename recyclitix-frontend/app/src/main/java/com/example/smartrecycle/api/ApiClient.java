@@ -15,9 +15,7 @@ import retrofit2.Response;
 public class ApiClient {
     private static final String TAG = "ApiClient";
 
-    /**
-     * Authenticate user and save token
-     */
+    
     public static void authenticateUser(Context context, String email, String password, 
                                        OnAuthListener listener) {
         User user = new User();
@@ -33,7 +31,7 @@ public class ApiClient {
                 if (response.isSuccessful() && response.body() != null) {
                     SignInResponse signInResponse = response.body();
                     
-                    // Save token and user info
+                    
                     SessionManager sessionManager = new SessionManager(context);
                     sessionManager.saveToken(signInResponse.getToken());
                     sessionManager.saveUserInfo(
@@ -58,9 +56,7 @@ public class ApiClient {
         });
     }
 
-    /**
-     * Save waste result with authentication
-     */
+    
     public static void saveWasteResult(Context context, WasteResult wasteResult, 
                                       OnWasteResultListener listener) {
         ApiService apiService = RetrofitClient.getAuthenticatedApiService(context);

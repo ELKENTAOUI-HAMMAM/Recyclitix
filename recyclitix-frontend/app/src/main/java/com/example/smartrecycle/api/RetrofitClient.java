@@ -21,41 +21,41 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     private static final String TAG = "RetrofitClient";
-    // URLs possibles pour le backend
+    
     private static final String[] POSSIBLE_BASE_URLS = {
-        "http://192.168.100.136:8080/",
-        "http://10.0.2.2:8080/",  // Pour l'émulateur Android
+        "http://192.168.0.141:8080/",
+        "http://10.0.2.2:8080/",  
         "http://localhost:8080/",
         "http://127.0.0.1:8080/"
     };
     
-    private static String BASE_URL = POSSIBLE_BASE_URLS[0]; // URL par défaut
+    private static String BASE_URL = POSSIBLE_BASE_URLS[0]; 
     private static Retrofit retrofit = null;
     private static Retrofit authenticatedRetrofit = null;
     private static SessionManager sessionManager;
 
-    // Méthode pour changer l'URL du backend
+    
     public static void setBaseUrl(String baseUrl) {
         BASE_URL = baseUrl;
-        // Réinitialiser les instances pour forcer la recréation
+        
         retrofit = null;
         authenticatedRetrofit = null;
         Log.d(TAG, "Base URL changée vers: " + BASE_URL);
     }
 
-    // Méthode pour obtenir l'URL actuelle
+    
     public static String getBaseUrl() {
         return BASE_URL;
     }
 
-    // Get basic Retrofit instance without authentication
+    
     public static Retrofit getClient() {
         if (retrofit == null) {
-            // Créer un interceptor pour les logs
+            
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-            // Configuration du client OkHttp
+            
             OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder()
                     .connectTimeout(30, TimeUnit.SECONDS)
                     .readTimeout(30, TimeUnit.SECONDS)
@@ -75,7 +75,7 @@ public class RetrofitClient {
         return retrofit;
     }
 
-    // Get authenticated Retrofit instance with token
+    
     public static Retrofit getAuthenticatedClient(Context context) {
         if (sessionManager == null) {
             sessionManager = new SessionManager(context);
@@ -86,7 +86,7 @@ public class RetrofitClient {
                     .setLenient()
                     .create();
 
-            // Créer un interceptor pour les logs
+            
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -127,12 +127,12 @@ public class RetrofitClient {
         return authenticatedRetrofit;
     }
 
-    // Get API service without authentication (for login/register)
+    
     public static ApiService getApiService() {
         return getClient().create(ApiService.class);
     }
 
-    // Get authenticated API service (for protected endpoints)
+    
     public static ApiService getAuthenticatedApiService(Context context) {
         return getAuthenticatedClient(context).create(ApiService.class);
     }

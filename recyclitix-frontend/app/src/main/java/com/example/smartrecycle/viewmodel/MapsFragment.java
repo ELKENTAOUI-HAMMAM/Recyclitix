@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -55,7 +54,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     private FusedLocationProviderClient fusedLocationClient;
     private CardView bottomSheet;
     private EditText searchInput;
-    private FloatingActionButton btnFilter;
     private View rootView;
     private List<RecyclingPoint> recyclingPoints = new ArrayList<>();
     private Map<Marker, RecyclingPoint> markerToRecyclingPoint = new HashMap<>();
@@ -73,7 +71,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         initializeViews();
         setupToolbar();
         setupSearch();
-        setupFilterButton();
         initializeMap();
     }
 
@@ -81,20 +78,31 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         bottomSheet = rootView.findViewById(R.id.bottomSheet);
         searchInput = rootView.findViewById(R.id.searchInput);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+
+        ChipGroup filterChipGroup = rootView.findViewById(R.id.filterChipGroup);
+        if (filterChipGroup != null) {
+            filterChipGroup.setOnCheckedChangeListener((group, checkedId) -> {
+                String query = searchInput.getText().toString();
+                String filter = "";
+                if (checkedId != View.NO_ID) {
+                    Chip chip = rootView.findViewById(checkedId);
+                    if (chip != null) {
+                        filter = chip.getText().toString();
+                    }
+                }
+                applyFilters(query, filter);
+            });
+        }
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = rootView.findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            toolbar.setNavigationOnClickListener(v -> {
+        View backButton = rootView.findViewById(R.id.backButton);
+        if (backButton != null) {
+            backButton.setOnClickListener(v -> {
                 if (getActivity() != null) {
                     getActivity().onBackPressed();
                 }
             });
-        } else {
-            // Si pas de toolbar, on peut ajouter un bouton de retour alternatif
-            // ou simplement ignorer cette fonctionnalité
-            android.util.Log.w("MapsFragment", "Toolbar not found in layout");
         }
     }
 
@@ -140,7 +148,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void fetchRecyclingPoints(double lat, double lng) {
-        int radius = 2000; // 2km
+        int radius = 2000; 
         ApiService apiService = RetrofitClient.getApiService();
         apiService.getRecyclingPoints(lat, lng, radius).enqueue(new Callback<List<RecyclingPoint>>() {
             @Override
@@ -216,7 +224,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         if (locationHours != null) locationHours.setText(point.hours != null ? point.hours : "");
         if (locationContact != null) locationContact.setText(point.contact != null ? point.contact : "");
 
-        // Affiche l'icône selon le type
+        
         if (locationTypeIcon != null) {
             int iconRes = R.drawable.ic_recycling_center;
             switch (point.type) {
@@ -228,7 +236,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
             locationTypeIcon.setImageResource(iconRes);
         }
 
-        // Clear existing chips and add new ones
+        
         if (materialsChipGroup != null) {
             materialsChipGroup.removeAllViews();
             if (point.acceptedMaterials != null) {
@@ -255,7 +263,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                 if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
                     startActivity(intent);
                 } else {
-                    // Fallback to generic maps intent
+                    
                     String mapsUri = "geo:" + location.latitude + "," + location.longitude + "?q=" +
                             location.latitude + "," + location.longitude + "(" + point.name + ")";
                     Intent fallbackIntent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(mapsUri));
@@ -274,23 +282,39 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                 public void onTextChanged(CharSequence s, int start, int before, int count) {}
                 @Override
                 public void afterTextChanged(Editable s) {
-                    searchRecyclingPoints(s.toString());
+                    ChipGroup filterChipGroup = rootView.findViewById(R.id.filterChipGroup);
+                    String filter = "";
+                    if (filterChipGroup != null) {
+                        int checkedId = filterChipGroup.getCheckedChipId();
+                        if (checkedId != View.NO_ID) {
+                            Chip chip = rootView.findViewById(checkedId);
+                            if (chip != null) {
+                                filter = chip.getText().toString();
+                            }
+                        }
+                    }
+                    applyFilters(s.toString(), filter);
                 }
             });
         }
     }
 
-    private void searchRecyclingPoints(String query) {
-        if (query.isEmpty()) {
-            displayRecyclingPoints();
-            return;
-        }
+    private void applyFilters(String query, String typeFilter) {
         if (mMap == null) return;
         mMap.clear();
         markerToRecyclingPoint.clear();
+
         for (RecyclingPoint point : recyclingPoints) {
-            if (point.name.toLowerCase().contains(query.toLowerCase()) ||
-                    point.address.toLowerCase().contains(query.toLowerCase())) {
+            boolean matchesQuery = query.isEmpty() || 
+                    point.name.toLowerCase().contains(query.toLowerCase()) ||
+                    point.address.toLowerCase().contains(query.toLowerCase());
+            
+            boolean matchesType = typeFilter.isEmpty() || 
+                    point.type.equalsIgnoreCase(typeFilter) ||
+                    (point.acceptedMaterials != null && point.acceptedMaterials.stream()
+                            .anyMatch(m -> m.equalsIgnoreCase(typeFilter)));
+
+            if (matchesQuery && matchesType) {
                 float markerColor = getMarkerColor(point.type);
                 Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(point.latitude, point.longitude))
@@ -304,11 +328,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         }
     }
 
-    private void setupFilterButton() {
-        if (btnFilter != null) {
-            btnFilter.setOnClickListener(v -> {
-                Toast.makeText(getContext(), "Filter options coming soon", Toast.LENGTH_SHORT).show();
-            });
         }
     }
 
@@ -328,7 +347,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // Clean up map fragment to prevent memory leaks
+        
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
         if (mapFragment != null) {

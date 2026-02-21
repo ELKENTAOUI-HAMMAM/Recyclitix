@@ -23,11 +23,7 @@ public class JwtUtils {
     @Value("${app.jwt.expiration}")
     private int jwtExpirationMs;
 
-    /**
-     * Generate a JWT token for the authenticated user
-     * @param authentication the authentication object containing user details
-     * @return the generated JWT token
-     */
+    
     public String generateJwtToken(Authentication authentication) {
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
 
@@ -39,19 +35,12 @@ public class JwtUtils {
                 .compact();
     }
 
-    /**
-     * Get the signing key from the JWT secret
-     * @return the signing key
-     */
+    
     private Key key() {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
 
-    /**
-     * Extract the username from the JWT token
-     * @param token the JWT token
-     * @return the username
-     */
+    
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key())
@@ -61,11 +50,7 @@ public class JwtUtils {
                 .getSubject();
     }
 
-    /**
-     * Validate the JWT token
-     * @param authToken the JWT token to validate
-     * @return true if the token is valid, false otherwise
-     */
+    
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(authToken);

@@ -39,7 +39,7 @@ public class MainContainerActivity extends AppCompatActivity {
             return false;
         });
 
-        // Set default fragment
+        
         if (savedInstanceState == null) {
             bottomNavigationView.setSelectedItemId(R.id.navigation_home);
         }

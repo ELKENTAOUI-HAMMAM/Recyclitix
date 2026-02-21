@@ -30,7 +30,7 @@ public class ProfileFragment extends Fragment {
     private SessionManager sessionManager;
 
     public ProfileFragment() {
-        // Required empty public constructor
+        
     }
 
     public static ProfileFragment newInstance(Bundle args) {
@@ -81,7 +81,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        // Fetch waste history to calculate stats
+        
         apiService.getWasteHistory().enqueue(new Callback<List<WasteResult>>() {
             @Override
             public void onResponse(Call<List<WasteResult>> call, Response<List<WasteResult>> response) {

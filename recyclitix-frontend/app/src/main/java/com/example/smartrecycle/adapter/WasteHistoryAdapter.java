@@ -103,27 +103,27 @@ public class WasteHistoryAdapter extends RecyclerView.Adapter<WasteHistoryAdapte
         }
 
         public void bind(WasteResult wasteResult) {
-            // Type de déchet
+            
             wasteType.setText(wasteResult.getWasteType());
             
-            // Catégorie
+            
             if (wasteResult.getWasteCategory() != null) {
                 wasteCategory.setText(wasteResult.getWasteCategory());
             } else {
                 wasteCategory.setText("Non classé");
             }
             
-            // Points
+            
             if (wasteResult.getWastePoints() != null) {
                 wastePoints.setText(String.valueOf(wasteResult.getWastePoints()) + " pts");
             } else {
                 wastePoints.setText("0 pts");
             }
             
-            // Date
+            
             if (wasteResult.getWasteDate() != null) {
                 try {
-                    // Essayer de parser la date si c'est une String
+                    
                     String dateString = wasteResult.getWasteDate();
                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
                     SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
@@ -131,22 +131,22 @@ public class WasteHistoryAdapter extends RecyclerView.Adapter<WasteHistoryAdapte
                     java.util.Date date = inputFormat.parse(dateString);
                     wasteDate.setText(outputFormat.format(date));
                 } catch (Exception e) {
-                    // Si le parsing échoue, afficher la date brute ou un message par défaut
+                    
                     wasteDate.setText(wasteResult.getWasteDate());
                 }
             } else {
                 wasteDate.setText("Date inconnue");
             }
             
-            // Time ago
+            
             if (wasteResult.getTimeAgo() != null) {
                 timeAgo.setText(wasteResult.getTimeAgo());
             } else {
                 timeAgo.setText("Récemment");
             }
             
-            // Icône (placeholder pour l'instant)
-            // TODO: Charger l'icône depuis wasteResult.getWasteIcon()
+            
+            
             setWasteIcon(wasteResult.getWasteType());
         }
 
@@ -175,7 +175,7 @@ public class WasteHistoryAdapter extends RecyclerView.Adapter<WasteHistoryAdapte
                 }
                 wasteIcon.setImageResource(iconResId);
             } catch (Exception e) {
-                // En cas d'erreur, utiliser l'icône par défaut
+                
                 wasteIcon.setImageResource(R.drawable.logo_recylitix);
             }
         }

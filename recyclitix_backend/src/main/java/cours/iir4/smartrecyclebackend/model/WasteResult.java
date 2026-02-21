@@ -18,7 +18,8 @@ public class WasteResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "waste_icon")
+    @Lob
+    @Column(name = "waste_icon", columnDefinition = "LONGTEXT")
     private String wasteIcon;
 
     @Column(name = "waste_type")
@@ -36,19 +37,19 @@ public class WasteResult {
     @Column(name = "time_ago")
     private String timeAgo;
 
-    @Column(name = "object_description", length = 1000)
+    @Column(name = "object_description", columnDefinition = "LONGTEXT")
     private String objectDescription;
 
-    @Column(name = "instructions", length = 1000)
+    @Column(name = "instructions", columnDefinition = "LONGTEXT")
     private String instructions;
 
     @Column(name = "confidence")
     private Double confidence;
 
-    @Column(name = "environmental_impact", length = 1000)
+    @Column(name = "environmental_impact", columnDefinition = "LONGTEXT")
     private String environmentalImpact;
 
-    @Column(name = "image_url", length = 1000)
+    @Column(name = "image_url", columnDefinition = "LONGTEXT")
     private String imageUrl;
 
     @ManyToOne(optional = true)
@@ -58,9 +59,9 @@ public class WasteResult {
     @Column(name = "scan_time")
     private LocalDateTime scanTime;
 
-    public WasteResult(String wasteIcon, String wasteType, String wasteCategory, 
-                      Integer wastePoints, String timeAgo, String objectDescription, 
-                      String instructions, User user) {
+    public WasteResult(String wasteIcon, String wasteType, String wasteCategory,
+            Integer wastePoints, String timeAgo, String objectDescription,
+            String instructions, User user) {
         this.wasteIcon = wasteIcon;
         this.wasteType = wasteType;
         this.wasteCategory = wasteCategory;
@@ -73,8 +74,8 @@ public class WasteResult {
         this.scanTime = LocalDateTime.now();
     }
 
-    public WasteResult(String wasteType, Double confidence, String description, 
-                      String recyclingInstructions, User user) {
+    public WasteResult(String wasteType, Double confidence, String description,
+            String recyclingInstructions, User user) {
         this.wasteType = wasteType;
         this.confidence = confidence;
         this.objectDescription = description;

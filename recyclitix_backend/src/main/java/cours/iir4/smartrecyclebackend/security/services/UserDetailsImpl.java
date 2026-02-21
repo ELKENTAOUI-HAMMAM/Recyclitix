@@ -34,7 +34,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public static UserDetailsImpl build(User user) {
-        // For simplicity, all users have the same authority
+        
         Collection<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("USER"));
 
         return new UserDetailsImpl(
@@ -74,7 +74,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email; // Using email as the username
+        return email; 
     }
 
     @Override

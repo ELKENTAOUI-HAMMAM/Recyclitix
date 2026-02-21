@@ -4,34 +4,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <!-- Header avec gradient -->
+    <LinearLayout
+        android:id="@+id/headerLayout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/white"
-        android:elevation="4dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_back">
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_header_background"
+        android:orientation="vertical"
+        android:padding="24dp"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Collection points"
-            android:textSize="20sp"
-            android:textColor="@color/textColor"
-            android:layout_gravity="center"/>
-    </androidx.appcompat.widget.Toolbar>
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-    <!-- Map View Container -->
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_back"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="4dp"
+                app:tint="@android:color/white"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:text="Collection points"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/headerLayout"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- Search Bar -->
     <androidx.cardview.widget.CardView
         android:id="@+id/searchBar"
         android:layout_width="match_parent"
@@ -39,7 +55,7 @@
         android:layout_margin="16dp"
         app:cardCornerRadius="24dp"
         app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/headerLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,6 +80,81 @@
                 android:textSize="16sp"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <!-- Filter Chips -->
+    <HorizontalScrollView
+        android:id="@+id/filterScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/searchBar">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/filterChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleSelection="true"
+            app:selectionRequired="false">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipPlastic"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plastic"
+                app:chipBackgroundColor="@color/successGreen"
+                android:textColor="@android:color/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipGlass"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Glass"
+                app:chipBackgroundColor="@color/successGreen"
+                android:textColor="@android:color/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipPaper"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Paper"
+                app:chipBackgroundColor="@color/successGreen"
+                android:textColor="@android:color/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipCardboard"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cardboard"
+                app:chipBackgroundColor="@color/successGreen"
+                android:textColor="@android:color/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMetal"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Metal"
+                app:chipBackgroundColor="@color/successGreen"
+                android:textColor="@android:color/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMixed"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mixed"
+                app:chipBackgroundColor="@color/successGreen"
+                android:textColor="@android:color/white" />
+
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
 
     <!-- Bottom Sheet for Location Details -->
     <androidx.cardview.widget.CardView

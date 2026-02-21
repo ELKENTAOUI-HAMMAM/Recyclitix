@@ -62,11 +62,11 @@ public class HistoryFragment extends Fragment implements WasteHistoryAdapter.OnW
         emptyStateText = view.findViewById(R.id.emptyStateText);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         
-        // Back button
+        
         view.findViewById(R.id.backButton).setOnClickListener(v -> 
             requireActivity().onBackPressed());
         
-        // Setup swipe to refresh
+        
         swipeRefreshLayout.setOnRefreshListener(this::loadHistory);
     }
 
@@ -79,9 +79,28 @@ public class HistoryFragment extends Fragment implements WasteHistoryAdapter.OnW
                 .setTitle("Delete analysis")
                 .setMessage("Are you sure you want to delete this analysis?")
                 .setPositiveButton("Delete", (dialog, which) -> {
-                    wasteResults.remove(position);
-                    adapter.notifyItemRemoved(position);
-                    if (wasteResults.isEmpty()) showEmptyState("No analysis found in your history");
+                    RetrofitClient.getAuthenticatedApiService(requireContext())
+                        .deleteWasteResult(wasteResult.getId())
+                        .enqueue(new Callback<okhttp3.ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<okhttp3.ResponseBody> call, Response<okhttp3.ResponseBody> response) {
+                                if (response.isSuccessful()) {
+                                    requireActivity().runOnUiThread(() -> {
+                                        wasteResults.remove(position);
+                                        adapter.notifyItemRemoved(position);
+                                        if (wasteResults.isEmpty()) showEmptyState("No analysis found in your history");
+                                        Toast.makeText(requireContext(), "Deleted successfully", Toast.LENGTH_SHORT).show();
+                                    });
+                                } else {
+                                    Toast.makeText(requireContext(), "Error deleting from server", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<okhttp3.ResponseBody> call, Throwable t) {
+                                Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
@@ -91,7 +110,7 @@ public class HistoryFragment extends Fragment implements WasteHistoryAdapter.OnW
     private void loadHistory() {
         showLoading(true);
         
-        // Vérifier si l'utilisateur est connecté
+        
         SessionManager sessionManager = new SessionManager(requireContext());
         String token = sessionManager.getToken();
         
@@ -100,7 +119,7 @@ public class HistoryFragment extends Fragment implements WasteHistoryAdapter.OnW
             return;
         }
         
-        // Charger l'historique depuis le backend
+        
         RetrofitClient.getAuthenticatedApiService(requireContext())
                 .getWasteHistory()
                 .enqueue(new Callback<List<WasteResult>>() {
@@ -154,7 +173,7 @@ public class HistoryFragment extends Fragment implements WasteHistoryAdapter.OnW
 
     @Override
     public void onWasteResultClick(WasteResult wasteResult) {
-        // Naviguer vers la page de détail de l'analyse
+        
         WasteDetailFragment fragment = new WasteDetailFragment();
         
         Bundle args = new Bundle();
@@ -166,6 +185,7 @@ public class HistoryFragment extends Fragment implements WasteHistoryAdapter.OnW
         args.putInt("wastePoints", wasteResult.getWastePoints() != null ? wasteResult.getWastePoints() : 0);
         args.putString("timeAgo", wasteResult.getTimeAgo());
         args.putString("wasteDate", wasteResult.getWasteDate());
+        args.putSerializable("wasteResult", wasteResult);
         
         fragment.setArguments(args);
         

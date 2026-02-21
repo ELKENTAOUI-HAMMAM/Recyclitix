@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Get API service from RetrofitClient
+        
         apiService = RetrofitClient.getApiService();
         sessionManager = new SessionManager(this);
 
@@ -61,13 +61,13 @@ public class LoginActivity extends AppCompatActivity {
                         if (signInResponse != null) {
                             Log.d(TAG, "Connexion réussie pour: " + signInResponse.getEmail());
                             
-                            // Save token in SessionManager if available in response
+                            
                             if (signInResponse.getToken() != null) {
                                 sessionManager.saveToken(signInResponse.getToken());
                                 Log.d(TAG, "Token sauvegardé");
                             }
 
-                            // Save user information
+                            
                             String firstName = signInResponse.getFirstName();
                             String lastName = signInResponse.getLastName();
                             String email = signInResponse.getEmail();

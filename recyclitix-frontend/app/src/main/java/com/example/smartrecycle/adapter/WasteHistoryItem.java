@@ -6,7 +6,7 @@ public class WasteHistoryItem implements Serializable {
     private String wasteType;
     private String date;
     private int points;
-    private String imagePath; // Chemin vers l'image stockée
+    private String imagePath; 
 
     public WasteHistoryItem(String wasteType, String date, int points, String imagePath) {
         this.wasteType = wasteType;

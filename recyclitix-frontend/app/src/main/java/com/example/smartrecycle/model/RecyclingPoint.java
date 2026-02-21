@@ -8,8 +8,8 @@ public class RecyclingPoint {
     public String address;
     public double latitude;
     public double longitude;
-    public String type; // "PLASTIC", "GLASS", "PAPER", etc.
+    public String type; 
     public List<String> acceptedMaterials;
-    public String hours; // optionnel
-    public String contact; // optionnel
+    public String hours; 
+    public String contact; 
 } 

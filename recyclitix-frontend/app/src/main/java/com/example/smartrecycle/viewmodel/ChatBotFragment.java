@@ -57,7 +57,7 @@ public class ChatBotFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         scrollView = view.findViewById(R.id.scrollView);
         
-        // Configuration du bouton retour
+        
         ImageButton backButton = view.findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> {
             if (getActivity() != null) {
@@ -77,17 +77,17 @@ public class ChatBotFragment extends Fragment {
             return false;
         });
 
-        // Message de bienvenue avec suggestions
+        
         addBotMessage("Bonjour ! Je suis RecycleBot 🤖, votre assistant pour le recyclage. Posez-moi vos questions sur le tri des déchets, les matériaux recyclables, ou tout autre sujet lié au recyclage !");
         
-        // Ajouter des suggestions de questions
+        
         addQuickSuggestions();
         
         return view;
     }
 
     private void addQuickSuggestions() {
-        // Créer un layout pour les suggestions
+        
         LinearLayout suggestionsLayout = new LinearLayout(requireContext());
         suggestionsLayout.setOrientation(LinearLayout.VERTICAL);
         suggestionsLayout.setPadding(16, 16, 16, 16);
@@ -124,7 +124,7 @@ public class ChatBotFragment extends Fragment {
             
             suggestionCard.addView(suggestionText);
             
-            // Ajouter un effet de clic
+            
             suggestionCard.setOnClickListener(v -> {
                 inputMessage.setText(suggestion);
                 sendMessage();
@@ -153,7 +153,7 @@ public class ChatBotFragment extends Fragment {
             suggestionsLayout.addView(suggestionCard);
         }
         
-        // Ajouter les suggestions au chat
+        
         chatContainer.addView(suggestionsLayout);
     }
 
@@ -161,17 +161,17 @@ public class ChatBotFragment extends Fragment {
         String message = inputMessage.getText().toString().trim();
         if (TextUtils.isEmpty(message)) return;
         
-        // Ajouter le message utilisateur
+        
         addUserMessage(message);
         inputMessage.setText("");
         
-        // Simuler le traitement
+        
         progressBar.setVisibility(View.VISIBLE);
         new Handler().postDelayed(() -> {
             progressBar.setVisibility(View.GONE);
             String response = getIntelligentResponse(message);
             addBotMessage(response);
-        }, 800 + random.nextInt(400)); // Délai variable pour plus de naturel
+        }, 800 + random.nextInt(400)); 
     }
 
     private void addUserMessage(String message) {
@@ -187,13 +187,13 @@ public class ChatBotFragment extends Fragment {
     }
 
     private void addMessageToUI(ChatMessage chatMessage) {
-        // Créer un CardView pour chaque message
+        
         androidx.cardview.widget.CardView messageCard = new androidx.cardview.widget.CardView(requireContext());
         messageCard.setRadius(16);
         messageCard.setElevation(4);
         messageCard.setUseCompatPadding(true);
         
-        // Créer le TextView pour le contenu
+        
         TextView messageView = new TextView(requireContext());
         messageView.setText(chatMessage.message);
         messageView.setTextSize(16);
@@ -201,7 +201,7 @@ public class ChatBotFragment extends Fragment {
         messageView.setMaxWidth((int) (getResources().getDisplayMetrics().widthPixels * 0.85f));
         messageView.setLineSpacing(4, 1.2f);
         
-        // Configuration du layout
+        
         LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -210,12 +210,12 @@ public class ChatBotFragment extends Fragment {
         messageCard.setLayoutParams(cardParams);
         
         if (chatMessage.isUser) {
-            // Message utilisateur (à droite)
+            
             messageCard.setCardBackgroundColor(getResources().getColor(R.color.primaryColor));
             messageView.setTextColor(getResources().getColor(android.R.color.white));
             cardParams.gravity = android.view.Gravity.END;
             
-            // Ajouter une icône utilisateur
+            
             LinearLayout userLayout = new LinearLayout(requireContext());
             userLayout.setOrientation(LinearLayout.HORIZONTAL);
             userLayout.setGravity(android.view.Gravity.END);
@@ -231,12 +231,12 @@ public class ChatBotFragment extends Fragment {
             messageCard.addView(userLayout);
             
         } else {
-            // Message bot (à gauche)
+            
             messageCard.setCardBackgroundColor(getResources().getColor(android.R.color.white));
             messageView.setTextColor(getResources().getColor(R.color.textColor));
             cardParams.gravity = android.view.Gravity.START;
             
-            // Ajouter une icône bot
+            
             LinearLayout botLayout = new LinearLayout(requireContext());
             botLayout.setOrientation(LinearLayout.HORIZONTAL);
             botLayout.setGravity(android.view.Gravity.START);
@@ -254,11 +254,11 @@ public class ChatBotFragment extends Fragment {
         
         chatContainer.addView(messageCard);
         
-        // Animation d'apparition
+        
         messageCard.setAlpha(0f);
         messageCard.animate().alpha(1f).setDuration(300).start();
         
-        // Scroll vers le bas
+        
         new Handler().postDelayed(() -> {
             if (scrollView != null) {
                 scrollView.fullScroll(ScrollView.FOCUS_DOWN);
@@ -269,7 +269,7 @@ public class ChatBotFragment extends Fragment {
     private String getIntelligentResponse(String message) {
         String lowerMessage = message.toLowerCase();
         
-        // Salutations
+        
         if (containsAny(lowerMessage, "bonjour", "salut", "hello", "hi", "coucou", "hey")) {
             String[] greetings = {
                 "Bonjour ! Comment puis-je vous aider avec le recyclage aujourd'hui ? 🌱",
@@ -279,7 +279,7 @@ public class ChatBotFragment extends Fragment {
             return greetings[random.nextInt(greetings.length)];
         }
 
-        // Plastique
+        
         if (containsAny(lowerMessage, "plastique", "bouteille plastique", "emballage plastique", "sachet plastique")) {
             return "♻️ **PLASTIQUE** :\n" +
                    "• Rincez les emballages avant de les jeter\n" +
@@ -289,7 +289,7 @@ public class ChatBotFragment extends Fragment {
                    "• Évitez les plastiques souples et les films alimentaires";
         }
 
-        // Verre
+        
         if (containsAny(lowerMessage, "verre", "bouteille verre", "pot verre", "bocal")) {
             return "🫙 **VERRE** :\n" +
                    "• Le verre se recycle à l'infini !\n" +
@@ -299,7 +299,7 @@ public class ChatBotFragment extends Fragment {
                    "• Rincez légèrement avant de jeter";
         }
 
-        // Papier et carton
+        
         if (containsAny(lowerMessage, "papier", "carton", "journal", "magazine", "boîte carton")) {
             return "📦 **PAPIER & CARTON** :\n" +
                    "• Papiers, journaux, magazines, cartons\n" +
@@ -309,7 +309,7 @@ public class ChatBotFragment extends Fragment {
                    "• Les cartons de pizza très gras vont à la poubelle normale";
         }
 
-        // Métaux
+        
         if (containsAny(lowerMessage, "métal", "canette", "aluminium", "boîte conserve", "ferraille")) {
             return "🥫 **MÉTAUX** :\n" +
                    "• Canettes, boîtes de conserve, emballages métalliques\n" +
@@ -319,7 +319,7 @@ public class ChatBotFragment extends Fragment {
                    "• Évitez les objets métalliques pointus ou dangereux";
         }
 
-        // Déchets organiques
+        
         if (containsAny(lowerMessage, "compost", "déchets organiques", "biodéchets", "épluchures", "marc café")) {
             return "🍃 **DÉCHETS ORGANIQUES** :\n" +
                    "• Épluchures de fruits et légumes\n" +
@@ -329,7 +329,7 @@ public class ChatBotFragment extends Fragment {
                    "• Évitez : viande, poisson, produits laitiers";
         }
 
-        // Électronique
+        
         if (containsAny(lowerMessage, "électronique", "électrique", "pile", "batterie", "téléphone", "ordinateur")) {
             return "🔋 **DÉCHETS ÉLECTRONIQUES** :\n" +
                    "• Piles et batteries : points de collecte en magasin\n" +
@@ -339,7 +339,7 @@ public class ChatBotFragment extends Fragment {
                    "• Les DEEE contiennent des métaux précieux recyclables";
         }
 
-        // Textiles
+        
         if (containsAny(lowerMessage, "vêtement", "textile", "tissu", "linge", "chaussure")) {
             return "👕 **TEXTILES** :\n" +
                    "• Vêtements, chaussures, linge de maison\n" +
@@ -349,7 +349,7 @@ public class ChatBotFragment extends Fragment {
                    "• Évitez les textiles souillés ou humides";
         }
 
-        // Médicaments
+        
         if (containsAny(lowerMessage, "médicament", "pilule", "sirop", "pommade")) {
             return "💊 **MÉDICAMENTS** :\n" +
                    "• Rapportez en pharmacie (même périmés)\n" +
@@ -359,7 +359,7 @@ public class ChatBotFragment extends Fragment {
                    "• Protection de l'environnement et de la santé !";
         }
 
-        // Huiles
+        
         if (containsAny(lowerMessage, "huile", "graisse", "friture")) {
             return "🛢️ **HUILES** :\n" +
                    "• Huiles de friture : déchetterie ou points de collecte\n" +
@@ -369,7 +369,7 @@ public class ChatBotFragment extends Fragment {
                    "• Les huiles sont transformées en biocarburant";
         }
 
-        // Questions générales sur le recyclage
+        
         if (containsAny(lowerMessage, "recycler", "recyclage", "tri", "trier")) {
             return "♻️ **COMMENT RECYCLER** :\n" +
                    "1. **Vérifiez** le type de déchet\n" +
@@ -380,7 +380,7 @@ public class ChatBotFragment extends Fragment {
                    "Les principaux matériaux recyclables : plastique, verre, papier, métal, organique.";
         }
 
-        // Centres de recyclage
+        
         if (containsAny(lowerMessage, "centre recyclage", "déchetterie", "point collecte", "où jeter")) {
             return "🗺️ **POINTS DE COLLECTE** :\n" +
                    "• Utilisez la carte de l'application pour trouver les centres\n" +
@@ -390,7 +390,7 @@ public class ChatBotFragment extends Fragment {
                    "• Consultez votre mairie pour les horaires";
         }
 
-        // Impact environnemental
+        
         if (containsAny(lowerMessage, "impact", "environnement", "pollution", "écologie", "planète")) {
             return "🌍 **IMPACT ENVIRONNEMENTAL** :\n" +
                    "• Le recyclage économise les ressources naturelles\n" +
@@ -400,7 +400,7 @@ public class ChatBotFragment extends Fragment {
                    "• Chaque geste compte pour préserver notre planète !";
         }
 
-        // Questions sur l'application
+        
         if (containsAny(lowerMessage, "application", "app", "fonction", "utiliser")) {
             return "📱 **FONCTIONNALITÉS DE L'APP** :\n" +
                    "• **Scan** : Identifiez vos déchets avec la caméra\n" +
@@ -410,7 +410,7 @@ public class ChatBotFragment extends Fragment {
                    "• **Profil** : Gérez vos préférences";
         }
 
-        // Remerciements
+        
         if (containsAny(lowerMessage, "merci", "thanks", "thank you")) {
             String[] thanks = {
                 "Avec plaisir ! N'hésitez pas si vous avez d'autres questions ! 😊",
@@ -420,7 +420,7 @@ public class ChatBotFragment extends Fragment {
             return thanks[random.nextInt(thanks.length)];
         }
 
-        // Questions non reconnues
+        
         if (containsAny(lowerMessage, "quoi", "comment", "pourquoi", "quand", "où")) {
             return "🤔 Je ne suis pas sûr de comprendre votre question. " +
                    "Pouvez-vous reformuler ? Je peux vous aider avec :\n" +
@@ -430,7 +430,7 @@ public class ChatBotFragment extends Fragment {
                    "• L'utilisation de l'application";
         }
 
-        // Réponse par défaut
+        
         String[] defaultResponses = {
             "Je suis spécialisé dans le recyclage ! Posez-moi des questions sur le tri des déchets, les matériaux recyclables, ou les points de collecte. ♻️",
             "Hmm, je ne suis pas sûr de comprendre. Je peux vous aider avec le recyclage : plastique, verre, papier, métal, déchets organiques, etc. 🌱",
