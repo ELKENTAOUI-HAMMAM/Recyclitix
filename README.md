@@ -1,5 +1,3 @@
-
-https://github.com/user-attachments/assets/1bb4208e-3ee3-4c0b-9d67-764eb50f95b8
 # Recylitix
 
 Recylitix is a complete smart recycling management solution, consisting of an Android mobile application and a Java Spring Boot backend.
