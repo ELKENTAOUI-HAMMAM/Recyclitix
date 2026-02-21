@@ -80,6 +80,9 @@ You can download a set of screenshots of the application (mobile and web) here:
 This file contains several images illustrating the user interface, main features, and user experience of Smart Recycle.
 >>>>>>> f764d63 (fin)
 
+## Video recorded
+<video controls src="Record_2026-02-21-16-35-57.mp4" title="Title"></video>
+
 ## 👥 Authors
 - Hammam Elkentaoui
 - Abdelmounaim Salhi
