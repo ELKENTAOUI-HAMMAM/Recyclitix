@@ -1,3 +1,5 @@
+
+https://github.com/user-attachments/assets/1bb4208e-3ee3-4c0b-9d67-764eb50f95b8
 # Recylitix
 
 Recylitix is a complete smart recycling management solution, consisting of an Android mobile application and a Java Spring Boot backend.
@@ -72,16 +74,14 @@ The project uses an artificial intelligence model for **automatic waste classifi
 
 You can download a set of screenshots of the application (mobile and web) here:
 
-- [Download screenshots (screenshot.rar)](./screenshot.rar)
-
-<<<<<<< HEAD
 - https://drive.google.com/file/d/1tr0vHzQrun4xuOo0fVZ2yXP46pZCgE7R/view?usp=sharing
-=======
-This file contains several images illustrating the user interface, main features, and user experience of Smart Recycle.
->>>>>>> f764d63 (fin)
 
 ## Video recorded
-<video controls src="Record_2026-02-21-16-35-57.mp4" title="Title"></video>
+
+
+https://github.com/user-attachments/assets/82c52d35-4251-41b1-a1c3-0b4265d5f089
+
+
 
 ## 👥 Authors
 - Hammam Elkentaoui
